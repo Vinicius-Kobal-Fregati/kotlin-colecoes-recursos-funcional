@@ -1,50 +1,43 @@
 package br.com.alura.array
 
 fun main() {
-    // Veja que é muito custoso trabalhar dessa forma, o certo seria utilizar alguma estrutura de dados
-    val idade1 = 25
-    val idade2 = 19
-    val idade3 = 33
-    val idade4 = 20
+    val salarios: DoubleArray = doubleArrayOf(
+        1500.50,
+        2300.0,
+        5000.0,
+        8000.0,
+        10000.0
+    )
 
-    var maiorIdade = if (idade1 > idade2 && idade1 > idade3 && idade1 > idade4) {
-        idade1
-    } else if (idade2 > idade1 && idade2 > idade3 && idade2 > idade4) {
-        idade2
-    } else if (idade3 > idade1 && idade3 > idade2 && idade3 > idade4) {
-        idade3
-    } else {
-        idade4
+    val aumento = 1.1
+    var indice = 0
+    // Esse é o pior dos cenários, ficamos com a responsabilidade de gerenciar o index
+    for (salario in salarios) {
+        salarios[indice] = salario * aumento
+        indice++
     }
 
-    println(maiorIdade)
+    // Forma de exibir os elementos do array como string
+    println(salarios.contentToString())
 
-    // Essa forma de trabalhar com arrays é mais custosa quando for adicionar itens
-    val idades = IntArray(5)
-    idades[0] = idade1
-    idades[1] = idade2
-    idades[2] = idade3
-    idades[3] = idade4
-    idades[4] = 55
-
-    // Essa forma já facilita esse processo
-    val idades2: IntArray = intArrayOf(idade1, idade2, idade3, idade4, 55)
-
-    // Iteração normal do for
-    maiorIdade = Int.MAX_VALUE
-    for (idade in idades) {
-        if (idade > maiorIdade)
-            maiorIdade = idade
-    }
-    println(maiorIdade)
-
-    // Iteração utilizando a função forEach
-    var menorIdade = Int.MAX_VALUE
-    idades2.forEach { idade ->
-        if (idade < menorIdade) {
-            menorIdade = idade
-        }
+    // Assim o index é gerenciado pelo programa, mas o código fica mais verboso
+    for (indice2 in salarios.indices) {
+        salarios[indice2] = salarios[indice2] * aumento
     }
 
-    println(menorIdade)
+    println(salarios.contentToString())
+
+    // Forma mais recomendada de se trabalhar com o for nesses casos que se precisa do index
+    for ((indice3, salario) in salarios.withIndex()) {
+        salarios[indice3] = salario * aumento
+    }
+
+    println(salarios.contentToString())
+
+    // Algo semelhante ao anterior, mas com forEach
+    salarios.forEachIndexed { i, salario ->
+        salarios[i] = salario * aumento
+    }
+
+    println(salarios.contentToString())
 }
