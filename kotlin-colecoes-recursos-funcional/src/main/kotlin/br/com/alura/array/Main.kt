@@ -1,43 +1,41 @@
 package br.com.alura.array
 
 fun main() {
-    val salarios: DoubleArray = doubleArrayOf(
-        1500.50,
-        2300.0,
-        5000.0,
-        8000.0,
-        10000.0
-    )
+    val serie: IntRange = 1.rangeTo(10)
+    for (s in serie) {
+        print("$s ")
+    }
+    println()
 
-    val aumento = 1.1
-    var indice = 0
-    // Esse é o pior dos cenários, ficamos com a responsabilidade de gerenciar o index
-    for (salario in salarios) {
-        salarios[indice] = salario * aumento
-        indice++
+    // Inclusivo, o 100 vai participar
+    val numerosPares: IntProgression = 0..100 step 2
+    for (numeroPar in numerosPares) {
+        print("$numeroPar ")
+    }
+    println()
+
+    // Nesse caso, o 100 não participa
+    val numerosPares2: IntProgression = 2.until(100) step 2
+    for (numeroPar in numerosPares2) {
+        print("$numeroPar ")
+    }
+    println()
+
+    val numerosParesReverso: IntProgression = 100 downTo 0 step 2
+    numerosParesReverso.forEach { print("$it ") }
+    println()
+
+    val intervalo = 1500.0..5000.0
+    val salario = 4000.0
+    // Verifica se o valor está dentro do intervalo
+    if (salario in intervalo) {
+        println("Está dentro do intervalo")
+    } else {
+        println("Não está dentro do intervalo")
     }
 
-    // Forma de exibir os elementos do array como string
-    println(salarios.contentToString())
-
-    // Assim o index é gerenciado pelo programa, mas o código fica mais verboso
-    for (indice2 in salarios.indices) {
-        salarios[indice2] = salarios[indice2] * aumento
-    }
-
-    println(salarios.contentToString())
-
-    // Forma mais recomendada de se trabalhar com o for nesses casos que se precisa do index
-    for ((indice3, salario) in salarios.withIndex()) {
-        salarios[indice3] = salario * aumento
-    }
-
-    println(salarios.contentToString())
-
-    // Algo semelhante ao anterior, mas com forEach
-    salarios.forEachIndexed { i, salario ->
-        salarios[i] = salario * aumento
-    }
-
-    println(salarios.contentToString())
+    val alfabeto: CharRange = 'a'..'z'
+    val letra = 'k'
+    println(letra in alfabeto)
+    println('K' in alfabeto)
 }
