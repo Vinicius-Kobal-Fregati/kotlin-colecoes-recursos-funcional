@@ -1,41 +1,27 @@
 package br.com.alura.array
 
 fun main() {
-    val serie: IntRange = 1.rangeTo(10)
-    for (s in serie) {
-        print("$s ")
-    }
-    println()
+    val idades: IntArray = intArrayOf(10, 12, 18, 33, 40, 67)
+    val maiorIdade: Int? = idades.maxOrNull()
+    val menorIdade: Int? = idades.minOrNull()
 
-    // Inclusivo, o 100 vai participar
-    val numerosPares: IntProgression = 0..100 step 2
-    for (numeroPar in numerosPares) {
-        print("$numeroPar ")
-    }
-    println()
+    println("Maior idade: $maiorIdade")
+    println("Menor idade: $menorIdade")
 
-    // Nesse caso, o 100 não participa
-    val numerosPares2: IntProgression = 2.until(100) step 2
-    for (numeroPar in numerosPares2) {
-        print("$numeroPar ")
-    }
-    println()
+    val media: Double = idades.average()
+    println("Média: $media")
 
-    val numerosParesReverso: IntProgression = 100 downTo 0 step 2
-    numerosParesReverso.forEach { print("$it ") }
-    println()
+    // Verifica se todos os elementos satisfazem uma condição
+    val todosMaiores: Boolean = idades.all { it >= 18 }
+    println("Todos maiores? $todosMaiores")
 
-    val intervalo = 1500.0..5000.0
-    val salario = 4000.0
-    // Verifica se o valor está dentro do intervalo
-    if (salario in intervalo) {
-        println("Está dentro do intervalo")
-    } else {
-        println("Não está dentro do intervalo")
-    }
+    val existeMaior: Boolean = idades.any { it >= 18 }
+    println("Algum aluno é maior de idade? $existeMaior")
 
-    val alfabeto: CharRange = 'a'..'z'
-    val letra = 'k'
-    println(letra in alfabeto)
-    println('K' in alfabeto)
+    // Devolve uma nova lista com apenas os elementos que satisfazem a condição
+    val maioresDeIdade: List<Int> = idades.filter { it >= 18 }
+    println("Maiores: $maioresDeIdade.")
+
+    val busca: Int? = idades.find { it >= 18 }
+    println("Busca: $busca")
 }
