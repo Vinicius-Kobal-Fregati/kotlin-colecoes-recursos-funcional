@@ -16,20 +16,33 @@ fun main() {
 
     // Cria uma nova lista/array mantendo o original
     val salariosComAumento: Array<BigDecimal> = salarios2
-        .map { salario ->
-            if (salario < "5000.00".toBigDecimal()) {
-                salario + "500.00".toBigDecimal()
-            } else {
-                (salario * aumento).setScale(2, RoundingMode.UP)
-            }
-        }
+        .map { salario -> calculaAumentoRelativo(salario, aumento) }
         .toTypedArray()
 
     println(salariosComAumento.contentToString())
+
+    val gastoInicial = salariosComAumento.somatoria()
+    println(gastoInicial)
+
 }
+
+private fun calculaAumentoRelativo(salario: BigDecimal, aumento: BigDecimal): BigDecimal =
+    if (salario < "5000.00".toBigDecimal()) {
+        salario + "500.00".toBigDecimal()
+    } else {
+        (salario * aumento).setScale(2, RoundingMode.UP)
+    }
 
 fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> {
     return Array<BigDecimal>(valores.size) { i ->
         valores[i].toBigDecimal()
+    }
+}
+
+// Extension function do array de BigDecimal
+fun Array<BigDecimal>.somatoria(): BigDecimal {
+//  Recebe um array de valores e reduz a um valor único
+    return this.reduce { acumulador, valor ->
+        acumulador + valor
     }
 }
