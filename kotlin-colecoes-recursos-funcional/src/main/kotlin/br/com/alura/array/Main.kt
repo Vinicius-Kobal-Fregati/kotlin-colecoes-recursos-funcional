@@ -1,27 +1,35 @@
 package br.com.alura.array
 
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 fun main() {
-    val idades: IntArray = intArrayOf(10, 12, 18, 33, 40, 67)
-    val maiorIdade: Int? = idades.maxOrNull()
-    val menorIdade: Int? = idades.minOrNull()
+    val salarios = Array<BigDecimal>(2) { BigDecimal.ZERO }
+    salarios[0] = "1500.55".toBigDecimal()
+    salarios[1] = "2000.00".toBigDecimal()
 
-    println("Maior idade: $maiorIdade")
-    println("Menor idade: $menorIdade")
+    println(salarios.contentToString())
 
-    val media: Double = idades.average()
-    println("Média: $media")
+    val aumento = "1.1".toBigDecimal()
+    val salarios2 = bigDecimalArrayOf("1500.55", "2000.00", "5000.00", "10000.00")
+    println(salarios2.contentToString())
 
-    // Verifica se todos os elementos satisfazem uma condição
-    val todosMaiores: Boolean = idades.all { it >= 18 }
-    println("Todos maiores? $todosMaiores")
+    // Cria uma nova lista/array mantendo o original
+    val salariosComAumento: Array<BigDecimal> = salarios2
+        .map { salario ->
+            if (salario < "5000.00".toBigDecimal()) {
+                salario + "500.00".toBigDecimal()
+            } else {
+                (salario * aumento).setScale(2, RoundingMode.UP)
+            }
+        }
+        .toTypedArray()
 
-    val existeMaior: Boolean = idades.any { it >= 18 }
-    println("Algum aluno é maior de idade? $existeMaior")
+    println(salariosComAumento.contentToString())
+}
 
-    // Devolve uma nova lista com apenas os elementos que satisfazem a condição
-    val maioresDeIdade: List<Int> = idades.filter { it >= 18 }
-    println("Maiores: $maioresDeIdade.")
-
-    val busca: Int? = idades.find { it >= 18 }
-    println("Busca: $busca")
+fun bigDecimalArrayOf(vararg valores: String): Array<BigDecimal> {
+    return Array<BigDecimal>(valores.size) { i ->
+        valores[i].toBigDecimal()
+    }
 }
