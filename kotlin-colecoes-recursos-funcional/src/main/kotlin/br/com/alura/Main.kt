@@ -33,4 +33,13 @@ fun main() {
     val listaLivrosComNulos: MutableList<Livro?> =
         mutableListOf(null, livro1, livro2, null, livro3, livro4)
     listaLivrosComNulos.imprimeComMarcadores()
+
+    val listaDeLivros = listaLivrosComNulos.filterNotNull()
+    listaDeLivros
+    // Agrupa pela editora, temos um retorno de chave e valor, onde a chave é a editora e o valor a lista
+        // Toda vez que a editora for nula, terá o valor de Editora desconhecida
+        .groupBy { it.editora ?: "Editora desconhecida" }
+        .forEach { (editora: String?, livros: List<Livro>) ->
+            println("$editora: ${livros.joinToString { it.titulo }}")
+        }
 }
